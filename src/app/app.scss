@@ -52,7 +52,7 @@ html, body {
   height: 80px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 0 1rem;
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(10px) saturate(150%);
@@ -64,8 +64,7 @@ html, body {
 
 /* Botón hamburguesa */
 .left-section {
-  position: absolute;
-  left: 1rem;
+  min-width: 60px;
 }
 .menu-btn {
   @extend .glass;
@@ -75,7 +74,7 @@ html, body {
   border: none; padding: 0; cursor: pointer;
 }
 
-/* Nombre “Juan Leiton” */
+/* Nombre "Juan Leiton" */
 .center-section {
   flex: 1;
   text-align: center;
@@ -91,8 +90,10 @@ html, body {
 
 /* Typewriter */
 .right-section {
-  position: absolute;
-  right: 1rem;
+  min-width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .typewriter {
   @extend .glass;
