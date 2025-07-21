@@ -105,6 +105,10 @@ html, body {
   overflow: hidden;
 }
 
+.typewriter:empty {
+  display: none !important;
+}
+
 /* Side-menu overlay con Glass */
 .side-menu {
   @extend .glass;
