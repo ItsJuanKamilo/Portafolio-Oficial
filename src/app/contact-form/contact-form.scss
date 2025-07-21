@@ -1,0 +1,291 @@
+/* Liquid Glass style for contact form main container */
+.contact-section {
+  background: rgba(255,255,255,0.18);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 440px;
+  width: 90%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s, background 0.3s;
+  position: relative;
+}
+
+.contact-section:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.22);
+}
+
+/* Glass title style */
+.contact-section h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 auto 4rem auto;
+  text-transform: uppercase;
+  position: relative;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.13);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 340px;
+}
+
+.contact-section h2:hover {
+  background: rgba(255,255,255,0.22);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+  transform: scale(1.05);
+}
+
+.contact-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+/* Form group with floating labels */
+.form-group {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 0 1.8rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.floating-label {
+  position: absolute;
+  left: -15px;
+  top: 18px;
+  color: #fff;
+  font-size: 1.08rem;
+  pointer-events: none;
+  background: transparent;
+  transition: all 0.28s cubic-bezier(.4,0,.2,1);
+  padding: 0 8px;
+  z-index: 2;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.input-glass:focus + .floating-label,
+.input-glass:not(:placeholder-shown) + .floating-label {
+  top: -25px;
+  left: -15px;
+  font-size: 0.95rem;
+  color: #ffffff;
+  background: rgba(255,255,255,0.22);
+  border-radius: 10px;
+  padding: 2px 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  font-weight: 700;
+}
+
+/* Glass style for input fields */
+.input-glass {
+  background: rgba(255,255,255,0.13);
+  border-radius: 14px;
+  border: 1.5px solid rgba(255,255,255,0.22);
+  padding: 1rem;
+  color: #fff;
+  font-size: 1.12rem;
+  margin-bottom: 0.1rem;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+  outline: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  backdrop-filter: blur(8px);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.input-glass:focus {
+  border: 2px solid #67e8f9;
+  box-shadow: 0 4px 18px rgba(127,156,245,0.22);
+  background: rgba(255,255,255,0.18);
+}
+
+.input-glass::placeholder {
+  color: transparent;
+}
+
+/* Textarea adjustments */
+.contact-section textarea.input-glass {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group textarea.input-glass + .floating-label {
+  top: 20px;
+}
+
+.form-group textarea.input-glass:focus + .floating-label,
+.form-group textarea.input-glass:not(:placeholder-shown) + .floating-label {
+  top: -25px;
+}
+
+/* Form actions and button */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.btn.glass {
+  background: linear-gradient(90deg, #7f9cf5 0%, #67e8f9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 1.1rem 2.4rem;
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  text-transform: uppercase;
+}
+
+.btn.glass:hover {
+  background: linear-gradient(90deg, #67e8f9 0%, #7f9cf5 100%);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.28);
+  transform: scale(1.04);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-section {
+    width: 85%;
+    padding: 2.5rem 1.5rem;
+    margin: 1.5rem auto;
+  }
+
+  .contact-form {
+    padding: 1rem 0;
+    width: 100%;
+  }
+
+  .contact-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 3.5rem;
+    padding: 10px 15px;
+    width: 90%;
+  }
+
+  .form-group {
+    width: 90%;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-glass {
+    font-size: 1.1rem;
+    padding: 0.9rem;
+  }
+
+  .btn.glass {
+    padding: 1rem 2.2rem;
+    font-size: 1.15rem;
+    width: auto;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 2rem;
+    margin: 1rem auto;
+    width: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+  }
+
+  .contact-form {
+    padding: 0;
+    gap: 1rem;
+  }
+
+  .contact-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 8px 12px;
+    width: 95%;
+  }
+
+  .form-group {
+    margin: 0 0 1.2rem 0;
+    width: 95%;
+  }
+
+  .input-glass {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .floating-label {
+    font-size: 1rem;
+  }
+
+  .btn.glass {
+    padding: 0.9rem 1.8rem;
+    font-size: 1.1rem;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 360px) {
+  .contact-section {
+    padding: 1.8rem;
+    margin: 1rem auto;
+    width: 90%;
+  }
+
+  .contact-form {
+    padding: 0;
+  }
+
+  .contact-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 2.8rem;
+  }
+
+  .input-glass {
+    font-size: 0.95rem;
+    padding: 0.7rem;
+  }
+
+  .floating-label {
+    font-size: 0.95rem;
+  }
+
+  .btn.glass {
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+    min-width: 160px;
+  }
+}

@@ -1,0 +1,779 @@
+/* Reset global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  position: relative;
+}
+
+/* Fondo animado */
+.animated-background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(45deg, #1e2b22, #333399, #370064, #570023);
+  background-size: 400% 400%;
+  animation: gradientAnimation 30s ease infinite;
+  z-index: -1;
+}
+@keyframes gradientAnimation {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Clase genérica Glassmorphism */
+.glass {
+  background: rgba(255,255,255,0.15);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+/* Contenedor de la app */
+:host {
+  display: block;
+  height: 100vh;
+}
+
+/* Topbar */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* Botón hamburguesa */
+.left-section {
+  position: absolute;
+  left: 1rem;
+}
+.menu-btn {
+  @extend .glass;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; color: #fff;
+  border: none; padding: 0; cursor: pointer;
+}
+
+/* Nombre “Juan Leiton” */
+.center-section {
+  flex: 1;
+  text-align: center;
+}
+.username {
+  @extend .glass;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  display: inline-block;
+}
+
+/* Typewriter */
+.right-section {
+  position: absolute;
+  right: 1rem;
+}
+.typewriter {
+  @extend .glass;
+  font-family: monospace;
+  font-size: 2rem;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Side-menu overlay con Glass */
+.side-menu {
+  @extend .glass;
+  position: fixed;
+  top: 80px; left: -260px;
+  width: 260px; bottom: 0;
+  border-radius: 0 16px 16px 0;
+  transition: left 0.3s ease;
+  z-index: 1001;
+  overflow-y: auto;
+}
+.side-menu.open {
+  left: 0;
+}
+
+/* Cabecera del menú */
+.side-header {
+  display: flex; justify-content: center; align-items: center;
+  padding: 1rem;
+  position: relative;
+}
+.side-header h2 {
+  @extend .glass;
+  padding: 0.5rem 1rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #fff;
+  display: inline-block;
+}
+.close-btn {
+  @extend .glass;
+  position: absolute;
+  top: 0.5rem; right: 0.5rem;
+  width: 32px; height: 32px;
+  display: flex; justify-content: center; align-items: center;
+  border: none; color: #fff;
+  font-size: 1.25rem; cursor: pointer;
+}
+
+/* Ítems de navegación */
+.side-menu nav ul {
+  list-style: none;
+  margin: 0; padding: 1rem 0;
+}
+.side-menu nav li + li {
+  margin-top: 0.5rem;
+}
+.side-menu nav a {
+  @extend .glass;
+  display: flex; align-items: center;
+  padding: 0.75rem 1rem;
+  color: #fff; text-decoration: none;
+  margin: 0.25rem 1rem; /* pequeño margen externo */
+  transition: background 0.2s;
+}
+.side-menu nav a:hover {
+  background: rgba(255,255,255,0.2);
+}
+.side-menu .icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+/* Overlay al abrir menú */
+.overlay {
+  position: fixed;
+  top: 80px; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+/* Contenido principal no se mueve */
+.main-content {
+  margin-top: 80px;
+  padding: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .typewriter {
+    display: auto;
+  }
+}
+
+/* AQUI PARTE EL MAIN LO DE ARRIBA ES TOPBAR Y MENU DESPLEGABLE DE LA IZQUIERDA */
+
+/* Contenedor principal del hero */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 3rem 2rem;
+  flex-wrap: wrap;
+}
+
+/* Izquierda: perfil + botones */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  flex: 1 1 300px; /* Crece hasta un mínimo de 300px */
+}
+
+/* Foto de perfil más grande */
+.profile {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease; /* transicion suave al hacer hover */
+
+  /* Establecer efecto de agrandar en la imagen */
+  .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;  /* animación suave */
+  }
+
+  /* Cuando el mouse pase sobre la foto */
+  &:hover .profile-img {
+    transform: scale(1.1);  /* aumenta un 10% */
+  }
+}
+
+
+/* Botones cuadrados más grandes y espaciados */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.btn {
+  @extend .glass;
+  width: 80px;
+  height: 80px;
+  min-width: 60px;
+  min-height: 60px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s, background-color 0.2s;
+  color: #fff;
+  font-size: 2rem;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.btn:hover {
+  transform: scale(1.15);
+}
+
+.btn i {
+  font-size: 2rem;
+}
+
+/* 💡 Agrega una media query para mejorar en móviles */
+@media (max-width: 500px) {
+  .btn {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .btn i {
+    font-size: 1.5rem;
+  }
+}
+
+
+
+/* Derecha: presentación ampliada */
+.hero-right {
+  @extend .glass;
+  flex: 2 1 400px; /* Crece más que la izquierda */
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.hero-right h1 {
+  
+  font-size: 4rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.hero-right h2.spaced {
+  
+  font-size: 2rem;
+  text-align: left;
+  color: #e0e0e0;
+}
+
+.hero-right p {
+  
+  font-size: 1.4rem;
+  line-height: 1.2;
+  color: #ddd;
+  text-align: left;
+}
+
+
+
+/* Ajustes para pantallas grandes (mayores a 2160px) */
+@media (min-width: 2160px) {
+  .hero {
+    padding: 3rem 4rem;  /* Ajuste el padding para las pantallas grandes */
+    gap: 4rem;  /* Aumentamos el gap para pantallas más grandes */
+  }
+
+  .hero-left {
+    flex: 1 1 350px;   /* Ajuste de la proporción */
+  }
+
+  .hero-right {
+    flex: 2;  /* Mantén el tamaño igual */
+  }
+
+  .profile {
+    width: 300px;  /* Tamaño fijo */
+    height: 300px; /* Tamaño fijo */
+  }
+
+  .btn {
+    width: 90px;   /* Tamaño fijo */
+    height: 90px;  /* Tamaño fijo */
+  }
+
+  .hero-right h1 {
+    font-size: 4.5rem;  /* Tamaño de fuente más grande */
+  }
+
+  .hero-right h2.spaced {
+    font-size: 2.5rem;
+  }
+
+  .hero-right p {
+    font-size: 1.6rem;  /* Tamaño de texto más grande */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Título de la sección de proyectos */
+
+.projects-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  position: relative;
+  display: block;
+  margin: 100px auto 70px auto;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+  border-radius: 15px;
+  backdrop-filter: blur(10px); /* Efecto de fondo difuso */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil para profundidad */
+  transition: all 0.3s ease; /* Transición suave */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  max-width: 600px; /* Limita el ancho máximo */
+}
+
+/* Efecto de hover para darle más dinamismo */
+.projects-title:hover {
+  background: rgba(255, 255, 255, 0.2); /* Cambio de color al pasar el mouse */
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4); /* Mayor sombra en hover */
+  transform: scale(1.05); /* Le da un ligero aumento de tamaño */
+}
+
+/* Contenedor de las tarjetas (distribuirlas en filas de 3) */
+.project-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;  /* Espacio entre las tarjetas */
+}
+
+/* Estilo para cada tarjeta */
+.project-card {
+  width: calc(33.333% - 20px);  /* 3 tarjetas por fila, menos el espacio entre ellas */
+  text-align: left;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.1); /* Fondo transparente con opacidad */
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(10px); /* Difuminado en el fondo */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Sombras sutiles */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;  /* Asegura que el padding no afecte el cálculo del ancho */
+}
+
+.project-card:hover {
+  transform: scale(1.05); /* Efecto de expansión al pasar el mouse */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más fuerte en hover */
+}
+
+/* Título con efecto Liquid Glass */
+.project-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.1); /* Fondo líquido */
+  border-radius: 10px;
+  backdrop-filter: blur(8px); /* Difuminado del fondo */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: #fff;
+  text-align: left;
+  display: inline-block;
+  width: auto;
+}
+
+/* Imagen del proyecto (rectangular) */
+.project-image img {
+  width: 100%;
+  height: 180px; /* Altura fija para hacerla rectangular */
+  object-fit: cover; /* Mantiene la imagen proporcionalmente adecuada */
+  border-radius: 10px;
+  margin-bottom: 15px; /* Espacio entre la imagen y la descripción */
+}
+
+/* Descripción del proyecto (limitar a 300 palabras) */
+.project-description {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 10px 0;
+  min-height: 80px;  /* Asegura que las tarjetas tengan un alto mínimo */
+  text-overflow: ellipsis;  /* Para truncar el texto en caso de ser demasiado largo */
+  overflow: hidden;
+  max-height: 200px;  /* Limitar la altura de la descripción */
+  text-align: left;
+}
+
+/* Línea de separación */
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 10px 0 20px 0;
+}
+
+/* Botón de Ver más */
+.view-more {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  margin-top: 20px;
+  transition: background 0.3s ease;
+}
+
+.view-more:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsividad: en pantallas más pequeñas, cambiar la cantidad de tarjetas por fila */
+@media (max-width: 768px) {
+  .project-card {
+    width: calc(50% - 20px);  /* 2 tarjetas por fila */
+  }
+}
+
+@media (max-width: 480px) {
+  .project-card {
+    width: 100%;  /* 1 tarjeta por fila */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Centrado solo de los logos en la sección de habilidades */
+.skills-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  gap: 28px;
+  margin-top: 1.2rem;
+  justify-items: center;
+  align-items: center;
+}
+/* Título de la sección de proyectos */
+.information-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+  display: block;
+  margin: 100px auto 70px auto;
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+  border-radius: 15px;
+  backdrop-filter: blur(10px); /* Efecto de fondo difuso */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil para profundidad */
+  transition: all 0.3s ease; /* Transición suave */
+  width: calc(100% - 40px); /* Ancho total menos margen */
+  max-width: 600px; /* Limita el ancho máximo */
+  word-wrap: break-word; /* Asegura que las palabras largas se rompan */
+  overflow-wrap: break-word; /* Soporte adicional para ruptura de palabras */
+  hyphens: auto; /* Permite guiones para palabras largas */
+}
+
+@media (max-width: 768px) {
+  .information-title {
+    font-size: 1.75rem;
+    padding: 15px 20px;
+    margin: 60px auto 40px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .information-title {
+    font-size: 1.5rem;
+    padding: 12px 15px;
+    margin: 40px auto 30px auto;
+    width: calc(100% - 30px);
+  }
+}
+
+/* Efecto de hover para darle más dinamismo */
+.information-title:hover {
+  background: rgba(255, 255, 255, 0.2); /* Cambio de color al pasar el mouse */
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4); /* Mayor sombra en hover */
+  transform: scale(1.05); /* Le da un ligero aumento de tamaño */
+}
+
+
+/* Sección de educación y habilidades con diseño Liquid Glass moderno */
+.info-section {
+  margin-top: 40px;
+  padding: 2rem 0;
+}
+
+.info-columns {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.info-left, .info-right {
+  @extend .glass;
+  flex: 1 1 320px;
+  padding: 2.2rem 1.5rem 2rem 1.5rem;
+  border-radius: 24px;
+  min-width: 260px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  margin-bottom: 2.5rem;
+  transition: box-shadow 0.3s, background 0.3s;
+  position: relative;
+/* Títulos de las cards de info con liquid glass */
+.info-title {
+  display: inline-block;
+  background: rgba(255,255,255,0.13);
+  border-radius: 12px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  letter-spacing: 1px;
+  text-align: left;
+}
+}
+
+.info-left:hover, .info-right:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.28);
+}
+
+.info-left h2, .info-right h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.info-left ul, .info-right ul {
+  list-style: none;
+  padding: 0 0 0 2px;
+  color: #e0e0e0;
+}
+
+.info-left li, .info-right li {
+  margin-bottom: 1.1rem;
+  font-size: 1.12rem;
+  background: rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 0.7rem 1rem 0.7rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: background 0.2s;
+}
+
+.info-left li strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .info-columns {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .info-left, .info-right {
+    min-width: 220px;
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+}
+/* Sección de educación y habilidades con diseño Liquid Glass moderno */
+.info-section {
+  margin-top: 40px;
+  padding: 2rem 0;
+}
+
+.info-columns {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.info-left, .info-right {
+  @extend .glass;
+  flex: 1 1 320px;
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  min-width: 260px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+.info-left:hover, .info-right:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.28);
+}
+
+.info-left h2, .info-right h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.info-left ul, .info-right ul {
+  list-style: none;
+  padding: 0;
+  color: #e0e0e0;
+}
+
+.info-left li, .info-right li {
+  margin-bottom: 1.2rem;
+  font-size: 1.15rem;
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+
+.info-left li strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .info-columns {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .info-left, .info-right {
+    min-width: 220px;
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+// FOOTER
+.bottom-bar {
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1rem;
+  position: relative; /* o 'fixed' si quieres que esté siempre visible */
+  bottom: 0;
+  z-index: 10;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Opcional para móviles */
+@media (max-width: 768px) {
+  .bottom-bar {
+    font-size: 0.9rem;
+    padding: 0.75rem 0;
+  }
+}
