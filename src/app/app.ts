@@ -66,7 +66,8 @@ export class AppComponent implements OnInit {
       .then(response => {
         const repos = response.data;
         // Filtrar el repositorio que no quieres mostrar
-        this.repos = repos.filter((repo: GitHubRepo) => repo.name !== 'ItsJuanKamilo');
+        const exclude = ['ItsJuanKamilo', 'Portafolio-Oficial'];
+        this.repos = repos.filter((repo: GitHubRepo) => !exclude.includes(repo.name));
 
         // Obtener el contenido del README y la imagen de cada repositorio
         this.repos.forEach(repo => {
