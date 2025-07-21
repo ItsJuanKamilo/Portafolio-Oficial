@@ -30,8 +30,12 @@ export class AppComponent implements OnInit {
   loading = true;
 
   ngOnInit() {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
     this.type();
     this.fetchGitHubRepos(); // Llamada a la API de GitHub para cargar los repos
+    setTimeout(() => window.scrollTo(0, 0), 0); // Fuerza el scroll al inicio después de renderizar
   }
 
   toggleMenu() {
