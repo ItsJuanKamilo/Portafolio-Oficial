@@ -64,45 +64,41 @@ export class AppComponent implements OnInit {
   }
 
   private fetchGitHubRepos() {
-    const githubApiUrl = 'https://api.github.com/users/ItsJuanKamilo/repos';
+  const githubApiUrl = 'https://api.github.com/users/ItsJuanKamilo/repos';
 
-    axios.get(githubApiUrl)
-      .then(response => {
-        const repos = response.data;
-        // Filtrar el repositorio que no quieres mostrar
-        const exclude = ['ItsJuanKamilo', 'Portafolio-Oficial'];
-        this.repos = repos.filter((repo: GitHubRepo) => !exclude.includes(repo.name));
+  axios.get(githubApiUrl)
+    .then(response => {
+      const repos = response.data;
+      // Filtrar el repositorio que no quieres mostrar
+      const exclude = ['ItsJuanKamilo', 'Portafolio-Oficial'];
+      this.repos = repos.filter((repo: GitHubRepo) => !exclude.includes(repo.name));
 
-        // Obtener el contenido del README y la imagen de cada repositorio
-        this.repos.forEach(repo => {
-          const imgUrl = `https://raw.githubusercontent.com/ItsJuanKamilo/${repo.name}/main/img.png`;
+      // Obtener el contenido del README y la imagen de cada repositorio
+      const promises = this.repos.map(repo => {
+        const imgUrl = `https://raw.githubusercontent.com/ItsJuanKamilo/${repo.name}/main/img.png`;
+        const readmeUrl = `https://raw.githubusercontent.com/ItsJuanKamilo/${repo.name}/main/README.md`;
 
-          // Verificar si la imagen existe
-          axios.get(imgUrl, { responseType: 'blob' })
-            .then(() => {
-              // Si la imagen existe, asignar la URL
-              repo.imgUrl = imgUrl;
-            })
-            .catch(() => {
-              // Si no existe, asignar undefined para que no se renderice nada
-              repo.imgUrl = undefined;  // Usar undefined en lugar de null
-            });
+        // Usar Promise.all para hacer ambas peticiones simultáneamente
+        return Promise.all([
+          axios.get(imgUrl, { responseType: 'blob' }).then(() => repo.imgUrl = imgUrl).catch(() => repo.imgUrl = undefined),
+          axios.get(readmeUrl).then(readmeResponse => repo.readme = readmeResponse.data).catch(() => repo.readme = "No README disponible")
+        ]);
+      });
 
-          // Obtener el contenido del README
-          axios.get(`https://raw.githubusercontent.com/ItsJuanKamilo/${repo.name}/main/README.md`)
-            .then(readmeResponse => {
-              repo.readme = readmeResponse.data;  // Almacenar el contenido del README
-            })
-            .catch(err => {
-              repo.readme = "No README disponible";
-            });
+      // Esperar a que todas las promesas se resuelvan antes de continuar
+      Promise.all(promises)
+        .then(() => {
+          this.loading = false;
+        })
+        .catch(err => {
+          console.error("Error al obtener la información de los repositorios", err);
+          this.loading = false;
         });
 
-        this.loading = false;
-      })
-      .catch(err => {
-        console.error("Error al obtener los repositorios", err);
-        this.loading = false;
-      });
-  }
+    })
+    .catch(err => {
+      console.error("Error al obtener los repositorios", err);
+      this.loading = false;
+    });
+}
 }
